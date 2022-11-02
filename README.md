@@ -1,4 +1,4 @@
-# javascript_frameworks
+# Javascript Frameworks
 Exploring React, Vue and Angular.
 
 # Learning Vue 
