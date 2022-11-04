@@ -1,5 +1,5 @@
 # Javascript Frameworks
-Exploring React, Vue and Angular.
+Exploring React/Next, Vue/Nuxt and Angular/Universal.
 
 # Learning Vue 
 
