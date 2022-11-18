@@ -73,24 +73,18 @@ header {
 }
 
 .header_right {
-    background-color: blueviolet;
 }
 
 /* Section divisions */
 
 section {
     display: grid;
-    grid-template-rows: 80px 1fr;
 }
 
-.section_top {
-    background-color: bisque;
-
-    grid-row-start: 1;
-    grid-row-end: 2;
+.section_container {
+    width: 100%;
+    height: 100%;
 }
-
-.section_middle {}
 
 /* media query */
 

@@ -31,15 +31,11 @@ export function LayoutView() {
                 </div>
             </header>
             <section className={styles.section}>
-                <div className={styles.section_top}>
-                    SECTION TOP
-                </div>
-                <div className={styles.section_middle}>
-                    SECTION MIDDLE
+                <div className={styles.section_container}>
+                    SECTION CONTAINER
                 </div>
             </section>
             <footer className={styles.footer}>
-                FOOTER
             </footer>
         </div>
 
