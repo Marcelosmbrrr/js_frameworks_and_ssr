@@ -1,22 +1,21 @@
+/* Main layout */
 .container {
     width: 100%;
     height: 100vh;
 
     display: grid;
-    grid-template-columns: 150px 1fr;
+    grid-template-columns: 190px 1fr;
     grid-template-rows: 80px 1fr 80px;
     grid-gap: 2px;
 }
 
 .aside {
-    background-color: red;
-
     /* column config */
     grid-column-start: 1;
     grid-column-end: 2;
 
     /* row config */
-    grid-row-start: 1;
+    grid-row-start: 2;
     grid-row-end: 3;
 
 }
@@ -25,10 +24,10 @@
     background-color: green;
 
     /* column config */
-    grid-column-start: 2;
+    grid-column-start: 1;
     grid-column-end: 3;
 
-     /* row config */
+    /* row config */
     grid-row-start: 1;
     grid-row-end: 2;
 }
@@ -42,13 +41,78 @@
 }
 
 .footer {
-    background-color: blue;
+    background-color: red;
 
     /* column config */
     grid-column-start: 1;
     grid-column-end: 3;
 
-     /* row config */
+    /* row config */
     grid-row-start: 3;
     grid-row-end: 4;
 }
+
+@media (max-width: 780px) {
+    .container {
+        grid-template-columns: 60px 1fr;
+    }
+}
+
+/* Aside divisions */
+
+.aside {
+    display: grid;
+    grid-template-columns: 60px 130px;
+}
+
+.nav_icons {
+    background-color: royalblue;
+}
+
+.nav_text {
+    background-color: aquamarine;
+}
+
+li {
+    padding: 20px 2px 20px 5px;
+}
+
+@media (max-width: 780px) {
+    .nav_text {
+        display: none;
+    }
+}
+
+/* Header divisions */
+
+header {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+}
+
+.header_left {
+    background-color: pink;
+}
+
+.header_right {
+    background-color: blueviolet;
+}
+
+/* Section divisions */
+
+section{
+    display: grid;
+    grid-template-rows: 80px 1fr;
+}
+
+.section_top{
+    background-color: bisque;
+
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.section_middle{
+
+}
+
