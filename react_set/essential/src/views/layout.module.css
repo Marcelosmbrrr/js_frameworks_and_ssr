@@ -1,0 +1,54 @@
+.container {
+    width: 100%;
+    height: 100vh;
+
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-template-rows: 80px 1fr 80px;
+    grid-gap: 2px;
+}
+
+.aside {
+    background-color: red;
+
+    /* column config */
+    grid-column-start: 1;
+    grid-column-end: 2;
+
+    /* row config */
+    grid-row-start: 1;
+    grid-row-end: 3;
+
+}
+
+.header {
+    background-color: green;
+
+    /* column config */
+    grid-column-start: 2;
+    grid-column-end: 3;
+
+     /* row config */
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+
+.section {
+    background-color: yellow;
+
+    /* column config */
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.footer {
+    background-color: blue;
+
+    /* column config */
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+     /* row config */
+    grid-row-start: 3;
+    grid-row-end: 4;
+}
