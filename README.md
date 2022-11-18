@@ -1,2 +1,2 @@
-# Javascript Frameworks
+# About
 Exploring React/Next, Vue/Nuxt and Angular/Universal.
