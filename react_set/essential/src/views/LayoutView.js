@@ -5,20 +5,20 @@ export function LayoutView() {
     return (
         <div className={styles.container}>
             <aside className={styles.aside}>
-                <div className={styles.nav_icons}>
+                <div className={styles.nav_desktop}>
                     <ul>
-                        <li>ICON</li>
-                        <li>ICON</li>
-                        <li>ICON</li>
-                        <li>ICON</li>
+                        <li>ICON TEXT</li>
+                        <li>ICON TEXT</li>
+                        <li>ICON TEXT</li>
+                        <li>ICON TEXT</li>
                     </ul>
                 </div>
-                <div className={styles.nav_text}>
+                <div className={styles.nav_mobile}>
                     <ul>
-                        <li>TEXT</li>
-                        <li>TEXT</li>
-                        <li>TEXT</li>
-                        <li>TEXT</li>
+                        <li>ICON</li>
+                        <li>ICON</li>
+                        <li>ICON</li>
+                        <li>ICON</li>
                     </ul>
                 </div>
             </aside>

@@ -5,11 +5,10 @@
 
     display: grid;
     grid-template-columns: 190px 1fr;
-    grid-template-rows: 80px 1fr 80px;
-    grid-gap: 2px;
+    grid-template-rows: 80px 1fr 50px;
 }
 
-.aside {
+aside {
     /* column config */
     grid-column-start: 1;
     grid-column-end: 2;
@@ -17,12 +16,9 @@
     /* row config */
     grid-row-start: 2;
     grid-row-end: 3;
-
 }
 
-.header {
-    background-color: green;
-
+header {
     /* column config */
     grid-column-start: 1;
     grid-column-end: 3;
@@ -32,17 +28,13 @@
     grid-row-end: 2;
 }
 
-.section {
-    background-color: yellow;
-
+section {
     /* column config */
     grid-column-start: 2;
     grid-column-end: 3;
 }
 
-.footer {
-    background-color: red;
-
+footer {
     /* column config */
     grid-column-start: 1;
     grid-column-end: 3;
@@ -52,35 +44,21 @@
     grid-row-end: 4;
 }
 
-@media (max-width: 780px) {
-    .container {
-        grid-template-columns: 60px 1fr;
-    }
-}
-
 /* Aside divisions */
 
-.aside {
-    display: grid;
-    grid-template-columns: 60px 130px;
-}
-
-.nav_icons {
-    background-color: royalblue;
-}
-
-.nav_text {
+.nav_mobile {
     background-color: aquamarine;
+    display: none;
+    height: 100%;
+}
+
+.nav_desktop {
+    background-color: royalblue;
+    height: 100%;
 }
 
 li {
     padding: 20px 2px 20px 5px;
-}
-
-@media (max-width: 780px) {
-    .nav_text {
-        display: none;
-    }
 }
 
 /* Header divisions */
@@ -100,19 +78,40 @@ header {
 
 /* Section divisions */
 
-section{
+section {
     display: grid;
     grid-template-rows: 80px 1fr;
 }
 
-.section_top{
+.section_top {
     background-color: bisque;
 
     grid-row-start: 1;
     grid-row-end: 2;
 }
 
-.section_middle{
+.section_middle {}
 
+/* media query */
+
+@media (max-width: 780px) {
+
+    /* container update */
+    .container {
+        grid-template-columns: 60px 1fr;
+    }
+
+    /* aside update */
+    aside {
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+
+    .nav_desktop {
+        display: none;
+    }
+
+    .nav_mobile {
+        display: block;
+    }
 }
-
