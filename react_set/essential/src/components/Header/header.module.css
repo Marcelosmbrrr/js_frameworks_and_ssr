@@ -1,0 +1,16 @@
+.header_icon {
+    margin-left: 50px;
+}
+
+.header_action {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+/* MEDIA QUERY */
+@media (max-width: 780px) {
+
+    .header_icon {
+        margin-left: 10px;
+    }
+}

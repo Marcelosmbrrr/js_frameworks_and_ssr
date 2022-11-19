@@ -1,0 +1,43 @@
+/* Aside divisions */
+.nav_mobile {
+    display: none;
+    height: 100%;
+}
+
+.nav_desktop {
+    height: 100%;
+}
+
+.nav_desktop li {
+    display: flex;
+}
+
+.nav_desktop li div:first-child {
+    margin-right: 10px;
+}
+
+a {
+    width: 100%;
+    padding: 20px 5px 20px 10px;
+    font-weight: bold;
+    display: flex;
+    color: #fff;
+    cursor: pointer;
+}
+
+a:hover{
+    color: #5ED3F3;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+/* MEDIA QUERY */
+@media (max-width: 780px) {
+    .nav_desktop {
+        display: none;
+    }
+
+    .nav_mobile {
+        display: block;
+    }
+
+}

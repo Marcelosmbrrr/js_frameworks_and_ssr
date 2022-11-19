@@ -1,39 +1,22 @@
 import * as React from 'react';
 import styles from "./layout.module.css";
+// Components
+import { Menu } from '../components/Menu/Menu';
+import { Header } from '../components/Header/Header';
+import { ContentContainer } from '../components/ContentContainer/ContentContainer';
+
 
 export function LayoutView() {
     return (
         <div className={styles.container}>
             <aside className={styles.aside}>
-                <div className={styles.nav_desktop}>
-                    <ul>
-                        <li>ICON TEXT</li>
-                        <li>ICON TEXT</li>
-                        <li>ICON TEXT</li>
-                        <li>ICON TEXT</li>
-                    </ul>
-                </div>
-                <div className={styles.nav_mobile}>
-                    <ul>
-                        <li>ICON</li>
-                        <li>ICON</li>
-                        <li>ICON</li>
-                        <li>ICON</li>
-                    </ul>
-                </div>
+                <Menu />
             </aside>
             <header className={styles.header}>
-                <div className={styles.header_left}>
-                    HEADER LEFT
-                </div>
-                <div className={styles.header_right}>
-                    HEADER RIGHT
-                </div>
+                <Header />
             </header>
             <section className={styles.section}>
-                <div className={styles.section_container}>
-                    SECTION CONTAINER
-                </div>
+                <ContentContainer />
             </section>
             <footer className={styles.footer}>
             </footer>
