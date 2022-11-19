@@ -68,19 +68,29 @@ export function Menu() {
             <div className={styles.nav_mobile}>
                 <ul className="menu_mobile">
                     <li>
-                        <DashboardIcon />
+                        <NavLink to="/">
+                            <DashboardIcon />
+                        </NavLink>
                     </li>
                     <li>
-                        <PlusOneIcon />
+                        <NavLink to="/counter">
+                            <PlusOneIcon />
+                        </NavLink>
                     </li>
                     <li>
-                        <FormatListBulletedIcon />
+                        <NavLink to="/todolist">
+                            <FormatListBulletedIcon />
+                        </NavLink>
                     </li>
                     <li>
-                        <PersonAddIcon />
+                        <NavLink to="/registration">
+                            <PersonAddIcon />
+                        </NavLink>
                     </li>
                     <li>
-                        <GroupIcon />
+                        <NavLink to="/users">
+                            <GroupIcon />
+                        </NavLink>
                     </li>
                 </ul>
             </div>
