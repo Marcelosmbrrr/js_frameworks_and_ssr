@@ -1,0 +1,133 @@
+.container {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 150px 1fr;
+    grid-gap: 5px;
+}
+
+.grid_item {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.top {
+    
+}
+
+.bottom {
+    /* column config */
+    grid-column-start: 1;
+    grid-column-end: 5;
+
+    /* row config */
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+
+/* MEDIA QUERY */
+@media (max-width: 1280px) {
+
+    .container {
+        grid-template-rows: repeat(2, 150px) 1fr;
+    }
+
+    .top:nth-child(1) {
+        /* column config */
+        grid-column-start: 1;
+        grid-column-end: 3;
+        /* row config */
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .top:nth-child(2) {
+        /* column config */
+        grid-column-start: 3;
+        grid-column-end: 5;
+        /* row config */
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .top:nth-child(3) {
+        /* column config */
+        grid-column-start: 1;
+        grid-column-end: 3;
+        /* row config */
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .top:nth-child(4) {
+        /* column config */
+        grid-column-start: 3;
+        grid-column-end: 5;
+        /* row config */
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .bottom {
+        /* row config */
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+}
+
+/* MEDIA QUERY */
+@media (max-width: 768px) {
+
+    /* container update */
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(5, 1fr);
+    }
+
+    .top:nth-child(1) {
+        /* column config */
+        grid-column-start: 1;
+        grid-column-end: 2;
+        /* row config */
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+
+    .top:nth-child(2) {
+        /* column config */
+        grid-column-start: 1;
+        grid-column-end: 2;
+        /* row config */
+        grid-row-start: 2;
+        grid-row-end: 3;
+    }
+
+    .top:nth-child(3) {
+        /* column config */
+        grid-column-start: 1;
+        grid-column-end: 2;
+        /* row config */
+        grid-row-start: 3;
+        grid-row-end: 4;
+    }
+
+    .top:nth-child(4) {
+        /* column config */
+        grid-column-start: 1;
+        grid-column-end: 2;
+        /* row config */
+        grid-row-start: 4;
+        grid-row-end: 5;
+    }
+
+    .bottom {
+        /* column config */
+        grid-column-start: 1;
+        grid-column-end: 2;
+        /* row config */
+        grid-row-start: 5;
+        grid-row-end: 6;
+    }
+}

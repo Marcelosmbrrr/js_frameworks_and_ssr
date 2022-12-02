@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import { CounterPage } from "../components/pages/CounterPage";
-import { DashboardPage } from "../components/pages/DashboardPage";
-import { RegistrationPage } from "../components/pages/RegistrationPage";
+import { CounterPage } from "../components/pages/Counter/CounterPage";
+import { DashboardPage } from "../components/pages/Dashboard/DashboardPage";
+import { RegistrationPage } from "../components/pages/Registration/RegistrationPage";
 import { NotFoundpPage } from '../components/pages/NotFound';
-import { TodoListPage } from "../components/pages/TodoListPage";
-import { UsersTablePage } from "../components/pages/UsersTablePage";
+import { TodoListPage } from "../components/pages/TodoList/TodoListPage";
+import { UsersTablePage } from "../components/pages/UsersTable/UsersTablePage";
 
 export function Router() {
 
