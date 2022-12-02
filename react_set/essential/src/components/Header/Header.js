@@ -9,7 +9,7 @@ export function Header() {
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" width="65px" />
             </div>
             <div className={styles.header_action}>
-                <LogoutIcon />
+                <LogoutIcon style={{ color: '#61DAFB' }} />
             </div>
         </>
     )
