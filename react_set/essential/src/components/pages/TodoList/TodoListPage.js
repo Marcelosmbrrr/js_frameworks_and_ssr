@@ -1,50 +1,72 @@
 import * as React from 'react';
 import styles from './todolist.module.css';
-// Mui
-import AddIcon from '@mui/icons-material/Add';
-import CreateIcon from '@mui/icons-material/Create';
-import DeleteIcon from '@mui/icons-material/Delete';
+// Custom
+import { CreateItem } from './Modals/CreateItem';
+import { UpdateItem } from './Modals/UpdateItem';
+import { DeleteItem } from './Modals/DeleteItem';
 
 export function TodoListPage() {
 
     const [list, setList] = React.useState([{}]);
     const [selectedItem, setSelectedItem] = React.useState(null);
+    const [items, setItems] = React.useState([]);
+
+    function handleCardSelection(e) {
+        console.log(e)
+    }
 
     return (
         <div className={styles.container}>
             <div className={`${styles.container_grid_item} ${styles.top}`}>
                 <div className={styles.actions}>
                     <div>
-                        <button><AddIcon /></button>
+                        <CreateItem setItems={setItems} items={items} />
                     </div>
                     <div>
-                        <button><CreateIcon /></button>
+                        <UpdateItem />
                     </div>
                     <div>
-                        <button><DeleteIcon /></button>
+                        <DeleteItem />
+                    </div>
+                    <div>
+                        | Total: {items.length}
                     </div>
                 </div>
             </div>
 
             <div className={`${styles.container_grid_item} ${styles.bottom}`}>
 
-                {/* Todo List*/}
-
-                {/*
-                <div className={styles.card}>
+                <div className={styles.card} onClick={handleCardSelection}>
                     <div className={styles.card_name}>
-                        <p>Title</p>
+                        <p>{'Title'}</p>
                     </div>
 
                     <div className={styles.card_content}>
-                        <p>Content</p>
+                        <p>{'Content'}</p>
                     </div>
 
                     <div className={styles.card_footer}>
-                        <p>Footer</p>
+                        <p>@{'creator'}</p>
                     </div>
                 </div>
-                */}
+
+                {items.length > 0 &&
+                    items.map((item) =>
+                        <div className={styles.card} key={item.id}>
+                            <div className={styles.card_name}>
+                                <p>ID: {item.id} - {item.title}</p>
+                            </div>
+
+                            <div className={styles.card_content}>
+                                <p>{item.content}</p>
+                            </div>
+
+                            <div className={styles.card_footer}>
+                                <p>@{item.creator}</p>
+                            </div>
+                        </div>
+                    )
+                }
 
             </div>
         </div>

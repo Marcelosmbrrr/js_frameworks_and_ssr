@@ -1,0 +1,42 @@
+.modal {
+    display: none;
+    position: absolute;
+    top: 60px;
+    padding: 10px;
+
+    width: 350px;
+    height: 'fit-content';
+    z-index: 1;
+}
+
+.formulary {
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.modal_button {
+    margin-right: 8px;
+    padding: 5px;
+    border-radius: 100%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.form_row {
+    padding: 5px;
+}
+
+.form_row input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.input_alert {
+    padding: 3px 3px 0px 0px;
+    font-size: 10px;
+}
+

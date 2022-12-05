@@ -8,11 +8,6 @@
     grid-gap: 5px;
 }
 
-.container_grid_item {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    background-color: #fff;
-}
-
 .top {
     display: grid;
     grid-template-rows: 1fr;
@@ -22,8 +17,8 @@
     overflow-y: scroll;
     display: grid;
     grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(8, 1fr);
-    grid-gap: 1px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
     padding: 5px;
 }
 
@@ -31,34 +26,38 @@
     display: flex;
     align-items: center;
     padding-left: 5px;
-}
-
-.actions div>button {
-    margin-right: 8px;
-    padding: 5px;
-    border-radius: 100%;
-    outline: none;
-    border: none;
-    cursor: pointer;
+    position: relative;
 }
 
 .card {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 30px 1fr 30px;
+    background-color: #fff;
+    transition: 0.5s;
+    cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.card_name {
+.card:hover{
+    transform: scale(0.95);
+}
+
+.card_name,
+.card_footer,
+.card_content {
     padding: 1px 1px 1px 5px;
+}
+
+.card_name {
     font-weight: bolder;
     border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }
 
-.card_content{
+.card_content {
     border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }
 
-.card_footer{
-
+.card_footer {
+    color: #61DAFB;
 }
