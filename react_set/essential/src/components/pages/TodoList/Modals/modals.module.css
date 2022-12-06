@@ -15,15 +15,6 @@
     border-radius: 5px;
 }
 
-.modal_button {
-    margin-right: 8px;
-    padding: 5px;
-    border-radius: 100%;
-    outline: none;
-    border: none;
-    cursor: pointer;
-}
-
 .form_row {
     padding: 5px;
 }

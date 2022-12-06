@@ -2,15 +2,9 @@ import * as React from 'react';
 // CSS
 import styles from './modals.module.css';
 // Mui
-import { TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid } from '@mui/material';
+import { TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-
-const iconStyle = {
-    '&:hover': {
-        color: '#61DAFB'
-    }
-}
 
 const initialFormData = { id: '', title: '', content: '', creator: '' }
 const initialError = { title: { error: false, message: '' }, content: { error: false, message: '' }, creator: { error: false, message: '' } };
@@ -61,11 +55,16 @@ export function CreateItem(props) {
 
     return (
         <>
-            <button onClick={handleOpen} className={styles.modal_button}>
-                <AddIcon sx={iconStyle} />
-            </button>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Create Item</DialogTitle>
+            <IconButton onClick={handleOpen} className={styles.modal_button}>
+                <AddIcon style={{ color: '#61DAFB' }} />
+            </IconButton>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                fullWidth
+                maxWidth="sm"
+            >
+                <DialogTitle>Create Card</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         To subscribe a new card, please, enter the title, content and you username.

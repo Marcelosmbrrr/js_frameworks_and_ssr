@@ -1,58 +1,54 @@
 import * as React from 'react';
 import styles from './modals.module.css';
 // Mui
+import { TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-const iconStyle = {
-    '&:hover': {
-        color: '#61DAFB'
-    }
-}
 
 export function DeleteItem(props) {
 
-    const [formData, setFormData] = React.useState({ title: '', content: '', by: 'you' });
-    const [formError, setFormError] = React.useState({ title: { error: false, message: '' }, content: { error: false, message: '' } });
     const [open, setOpen] = React.useState(false);
-    const modal = React.useRef();
 
-    function openModal() {
-        modal.current.classList.add(styles['open']);
+    function handleOpen() {
+        setOpen(true);
     }
 
-    function closeModal() {
-        modal.current.classList.add(styles['close']);
+    function handleClose() {
+        setOpen(false);
     }
 
-    function handleChangeInput(e) {
-        setFormData({ ...formData, [e.target.name]: e.currentTarget.value });
+    function handleSave() {
+
+        let items_without_the_deleted = props.items.filter((item) => item.id !== props.selectedItem.id);
+
+        props.setItems([...items_without_the_deleted]);
+        props.setSelectedItem(null);
+        handleClose();
+
     }
 
     return (
         <>
-            <button onClick={openModal} className={styles.modal_button}>
-                <DeleteIcon sx={iconStyle} />
-            </button>
-            <div className={styles.modal} ref={modal} hidden>
-                <div className={styles.formulary}>
-                    <div className={styles.form_row}>
-                        <input placeholder='Type the card title' value={formData.title} onChange={handleChangeInput} />
-                        <div className={styles.input_alert} hidden={!formError.title.message}>
-                            <p>{formError.title.message}</p>
-                        </div>
-                    </div>
-                    <div className={styles.form_row}>
-                        <input placeholder='Type the card content' value={formData.content} onChange={handleChangeInput} />
-                        <div className={styles.input_alert} hidden={!formError.content.message}>
-                            <p>{formError.content.message}</p>
-                        </div>
-                    </div>
-                    <div className={styles.form_row}>
-                        <input value={formData.by} readOnly />
-                    </div>
-                </div>
+            <IconButton onClick={handleOpen} className={styles.modal_button}>
+                <DeleteIcon style={{ color: '#61DAFB' }} />
+            </IconButton>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                fullWidth
+                maxWidth="sm"
+            >
+                <DialogTitle>Delete Card</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Be careful: this action is irreversible.
+                    </DialogContentText>
 
-            </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleSave} color="error" variant="contained">Delete</Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }

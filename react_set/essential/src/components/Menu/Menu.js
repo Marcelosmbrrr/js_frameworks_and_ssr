@@ -1,7 +1,7 @@
 import styles from "./menu.module.css";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PlusOneIcon from '@mui/icons-material/PlusOne';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import TableRowsIcon from '@mui/icons-material/TableRows';
 import GroupIcon from '@mui/icons-material/Group';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 //
@@ -44,22 +44,12 @@ export function Menu() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/registration">
+                        <NavLink to="/table">
                             <div>
-                                <PersonAddIcon />
+                                <TableRowsIcon />
                             </div>
                             <div>
-                                REGISTER
-                            </div>
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/users">
-                            <div>
-                                <GroupIcon />
-                            </div>
-                            <div>
-                                USERS
+                                TABLE
                             </div>
                         </NavLink>
                     </li>
@@ -83,13 +73,8 @@ export function Menu() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/registration">
-                            <PersonAddIcon />
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/users">
-                            <GroupIcon />
+                        <NavLink to="/table">
+                            <TableRowsIcon />
                         </NavLink>
                     </li>
                 </ul>
