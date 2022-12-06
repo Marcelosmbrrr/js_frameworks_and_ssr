@@ -39,7 +39,7 @@ input {
 .key {
     background-color: #D7F6FE;
     cursor: pointer;
-    transition: 1s;
+    transition: 0.2s;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,8 +47,9 @@ input {
     font-weight: 800;
 }
 
-.key:hover {
+.key:active {
     background-color: #66DBFB;
+    transform: scale(0.9);
 }
 
 .number_key:nth-child(1),

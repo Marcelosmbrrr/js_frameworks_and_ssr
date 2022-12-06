@@ -5,7 +5,7 @@ export function TablePage() {
     return (
         <>
             <div className={styles.container}>
-                <p>ok</p>
+                <p>TABLE</p>
             </div>
         </>
     )

@@ -26,7 +26,7 @@ export function CounterPage() {
 
     function handleNumberClick(e) {
         if (operator === '') {
-            alert('Choose operation first!');
+            // alert - choose operation first
             return '';
         }
 
@@ -40,7 +40,7 @@ export function CounterPage() {
     function handleEnter() {
 
         if(operator === ''){
-            alert('Theres nothing to calculate.');
+            // alert - theres nothing to calculate
             return '';
         }
 
