@@ -1,9 +1,9 @@
 import styles from "./menu.module.css";
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import PlusOneIcon from '@mui/icons-material/PlusOne';
+import CalculateIcon from '@mui/icons-material/Calculate';
 import TableRowsIcon from '@mui/icons-material/TableRows';
-import GroupIcon from '@mui/icons-material/Group';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import MemoryIcon from '@mui/icons-material/Memory';
 //
 import { NavLink } from 'react-router-dom';
 
@@ -26,10 +26,10 @@ export function Menu() {
                     <li>
                         <NavLink to="/counter">
                             <div>
-                                <PlusOneIcon />
+                                <CalculateIcon />
                             </div>
                             <div>
-                                COUNTER
+                                CALC
                             </div>
                         </NavLink>
                     </li>
@@ -53,6 +53,16 @@ export function Menu() {
                             </div>
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/memoization">
+                            <div>
+                                <MemoryIcon />
+                            </div>
+                            <div>
+                                MEMO
+                            </div>
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
             <div className={styles.nav_mobile}>
@@ -64,7 +74,7 @@ export function Menu() {
                     </li>
                     <li>
                         <NavLink to="/counter">
-                            <PlusOneIcon />
+                            <CalculateIcon />
                         </NavLink>
                     </li>
                     <li>
@@ -75,6 +85,11 @@ export function Menu() {
                     <li>
                         <NavLink to="/table">
                             <TableRowsIcon />
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/memoization">
+                            <MemoryIcon />
                         </NavLink>
                     </li>
                 </ul>

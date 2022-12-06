@@ -1,0 +1,24 @@
+.card {
+    width: 250px;
+    height: 350px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: grid;
+    grid-template-rows: 30px 1fr 60px;
+}
+
+.title {
+    padding: 2px 5px;
+    font-weight: 800;
+}
+
+.screen {
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action_row {
+    text-align: center;
+    align-self: center;
+}
