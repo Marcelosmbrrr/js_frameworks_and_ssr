@@ -7,7 +7,7 @@ import CreateIcon from '@mui/icons-material/Create';
 const initialFormData = { id: '', title: '', content: '', creator: '' }
 const initialError = { title: { error: false, message: '' }, content: { error: false, message: '' }, creator: { error: false, message: '' } };
 
-export function UpdateItem(props) {
+export const UpdateItem = React.memo((props) => {
 
     const [formData, setFormData] = React.useState(initialFormData);
     const [error, setError] = React.useState(initialError);
@@ -124,4 +124,4 @@ export function UpdateItem(props) {
             </Dialog>
         </>
     )
-}
+});

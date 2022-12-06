@@ -4,7 +4,7 @@ import styles from './modals.module.css';
 import { TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export function DeleteItem(props) {
+export const DeleteItem = React.memo((props) => {
 
     const [open, setOpen] = React.useState(false);
 
@@ -51,4 +51,4 @@ export function DeleteItem(props) {
             </Dialog>
         </>
     )
-}
+});
