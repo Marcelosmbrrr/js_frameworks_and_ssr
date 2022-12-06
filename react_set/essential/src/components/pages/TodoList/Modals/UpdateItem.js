@@ -25,7 +25,6 @@ export const UpdateItem = React.memo((props) => {
     }
 
     function handleSave() {
-
         let itemsUpdated = props.items.map((item, index) => {
             // Set formData to items[index]
             if (item.id === formData.id) {

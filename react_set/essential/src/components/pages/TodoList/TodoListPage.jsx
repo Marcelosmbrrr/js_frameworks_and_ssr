@@ -16,13 +16,14 @@ export function TodoListPage() {
     const [selectedItem, setSelectedItem] = React.useState(null);
     const [items, setItems] = React.useState([]);
 
-    function handleSelectionCardToggle(item, event) {
+    // Hook to avoid function to enter in reconciliation algorithm
+    const handleSelectionCardToggle = React.useCallback((item, event) => {
         if (selectedItem) {
             setSelectedItem(null);
         } else {
             setSelectedItem(item);
         }
-    }
+    }, [selectedItem])
 
     return (
         <div className={styles.container}>
