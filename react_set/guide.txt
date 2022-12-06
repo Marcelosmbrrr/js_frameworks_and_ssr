@@ -1,2 +1,2 @@
-React: https://www.youtube.com/watch?v=NmU2nNehNNY&t=1159s
+React: https://www.youtube.com/watch?v=NmU2nNehNNY&t=1159s | memo, useMemo, useCallback: https://www.youtube.com/watch?v=c6QO8ePE_a8
 Next: https://www.youtube.com/watch?v=2LS6rP3ykJk&t=1496s

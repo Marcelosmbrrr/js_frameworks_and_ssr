@@ -10,9 +10,9 @@ import { SecondCard } from './cards/SecondCard';
 // A parent component, by default, re-render with all its childs, being necessary or not
 // So, the hooks memo, useMemo and userCallback exists for avoid unnecessary components re-renders 
 
-// React.memo ===> For props memoization ===> Avoid unnecessary childreen re-render
-// React.useMemo ===> For variables (not states) memoization ===> Avoid unnecessary variable re-render
-// React.useCallback ===> For functions process memoization ===> Avoid unnecessary function re-render
+// React.memo ===> For props memoization ===> Avoid unnecessary childreen re-render if props not changed
+// React.useMemo ===> For variables (not states) memoization ===> Avoid unnecessary variable re-render if dependencies not changed
+// React.useCallback ===> For functions process memoization ===> Avoid unnecessary function re-render if dependencies not changed
 
 export function MemosPage() {
 
