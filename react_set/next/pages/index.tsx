@@ -1,20 +1,10 @@
 import * as React from 'react';
-import ReactCSSTransitionGroup from 'react-transition-group';
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from '../styles/login.module.css';
+// Types
+import { form, formError } from '../types';
 // MUI
-import { TextField, Grid, Typography, Button, Divider } from '@mui/material';
-
-interface form {
-    email: string,
-    password: string
-}
-
-interface formError {
-    email: { error: boolean, message: string },
-    password: { error: boolean, message: string }
-}
+import { TextField, Grid, Button } from '@mui/material';
 
 const inputStyle = {
     minHeight: '80px'
@@ -29,9 +19,10 @@ export default function Login() {
 
     const [form, setForm] = React.useState<form>({ email: '', password: '' });
     const [formError, setFormError] = React.useState<formError>({ email: { error: false, message: '' }, password: { error: false, message: '' } });
+    const [loading, setLoading] = React.useState<boolean>(false);
 
     function handleLogin() {
-        console.log('login');
+        console.log(form);
     }
 
     function handleFormChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -57,6 +48,7 @@ export default function Login() {
                             <TextField
                                 id="email"
                                 label="Email"
+                                name="email"
                                 variant="outlined"
                                 fullWidth
                                 onChange={handleFormChange}
@@ -71,7 +63,9 @@ export default function Login() {
                             <TextField
                                 id="password"
                                 label="Password"
+                                name="password"
                                 variant="outlined"
+                                type="password"
                                 fullWidth
                                 onChange={handleFormChange}
                                 value={form.password}
@@ -82,7 +76,7 @@ export default function Login() {
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Button variant="contained" fullWidth onClick={handleLogin}>Login</Button>
+                            <Button variant="contained" fullWidth onClick={handleLogin} disabled={loading}>{loading ? 'Loading...' : 'Login'}</Button>
                         </Grid>
 
                     </Grid>
