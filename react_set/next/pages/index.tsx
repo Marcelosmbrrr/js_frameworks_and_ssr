@@ -2,7 +2,7 @@ import * as React from 'react';
 import Head from 'next/head';
 import styles from '../styles/login.module.css';
 // Types
-import { form, formError } from '../types';
+import { form, formError, formValidation } from '../types';
 // MUI
 import { TextField, Grid, Button } from '@mui/material';
 
@@ -15,6 +15,17 @@ const topModalStyle = {
     mb: 2
 }
 
+const formPatterns: formValidation = {
+    email: {
+        regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        message: 'Invalid email.'
+    },
+    password: {
+        regex: /[0-9a-zA-Z]{6,}/,
+        message: 'Must have at least 6 characters. '
+    }
+}
+
 export default function Login() {
 
     const [form, setForm] = React.useState<form>({ email: '', password: '' });
@@ -22,7 +33,19 @@ export default function Login() {
     const [loading, setLoading] = React.useState<boolean>(false);
 
     function handleLogin() {
-        console.log(form);
+
+        let formErrorClone = Object.assign(formError);
+        for (let field in form) {
+            if (!form[field].toString().match(formPatterns[field].regex)) {
+                formErrorClone[field] = { error: true, message: formPatterns[field].message }
+            } else {
+                formErrorClone[field] = { error: false, message: '' }
+            }
+        }
+
+        setFormError({ ...formErrorClone });
+
+        alert('Login!');
     }
 
     function handleFormChange(e: React.ChangeEvent<HTMLInputElement>) {

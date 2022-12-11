@@ -20,7 +20,7 @@
 @keyframes fade_out {
     0% {
         opacity: 0;
-        transform: translateX(-100px);
+        transform: translateX(-60px);
     }
 
     100% {
@@ -30,5 +30,5 @@
 }
 
 .fade_out {
-    animation: fade_out 1.5s linear;
+    animation: fade_out 1s ease-in-out;
 }
