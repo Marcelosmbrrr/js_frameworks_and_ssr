@@ -3,6 +3,8 @@ import Router from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 // https://github.com/maticzav/nookies
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
+// Method to signIn
+import { signInRequest, recoverUserInformation } from '../../services/auth';
 
 interface AuthContextInterface {
     user: UserInterface,
@@ -30,21 +32,27 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
     const isAuthenticated: boolean = !!user;
 
-    function signIn({ email, password }: SigInDataInterface) {
+    // To check if user is already authenticated
+    React.useEffect(() => {
 
-        if (email !== 'admin@gmail.com' && password !== '12345') {
-            throw new Error("Invalid Credentials");
+        const cookies = parseCookies();
+        const token = cookies['nextauth.token'];
+
+        if (token) {
+            recoverUserInformation(token).then(response => setUser(response.user))
         }
 
-        // After successful login
-        const token = uuidv4();
-        const userAuthenticated = { id: '1', name: 'Admin', email: email, avatar: "/static/images/user.png" }
+    }, []);
+
+    async function signIn(data: SigInDataInterface) {
+
+        const { token, user } = await signInRequest(data);
 
         // Set user authenticated data
-        setUser(userAuthenticated);
+        setUser(user);
 
         // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
-        setCookie(undefined, 'nextauth.token', token, {
+        setCookie(undefined, 'nextauth.token', JSON.stringify(token), {
             maxAge: 68 * 60 * 1, // 1 hour
         });
 

@@ -5,6 +5,7 @@ import styles from '../styles/login.module.css';
 import { formInterface, formErrorInterface, formValidationInterface } from '../types';
 // MUI
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Box, Typography, Container } from '@mui/material';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 // Context
 import { useAuth } from '../context/auth';
 
@@ -14,21 +15,38 @@ const formPatterns: formValidationInterface = {
         message: 'Invalid email.'
     },
     password: {
-        regex: /[0-9a-zA-Z]{6,}/,
-        message: 'Must have at least 6 characters. '
+        regex: /[0-9a-zA-Z]{5,}/,
+        message: 'Must have at least 5 characters. '
     }
 }
 
 export default function Login() {
 
     const { signIn } = useAuth();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [form, setForm] = React.useState<formInterface>({ email: '', password: '' });
     const [formError, setFormError] = React.useState<formErrorInterface>({ email: { error: false, message: '' }, password: { error: false, message: '' } });
     const [loading, setLoading] = React.useState<boolean>(false);
 
-    function handleSignIn(e: React.SyntheticEvent) {
+    async function handleSignIn(e: React.SyntheticEvent) {
         e.preventDefault();
+
+        setLoading(true);
+
+        if (handleFormValidation()) {
+            try {
+                await signIn(form);
+            } catch (error) {
+                enqueueSnackbar(error.message, { variant: "error" });
+            } finally {
+                setLoading(false);
+            }
+
+        }
+    }
+
+    function handleFormValidation() {
 
         let formErrorClone: formErrorInterface = Object.assign(formError);
         let is_valid: boolean = true;
@@ -43,9 +61,8 @@ export default function Login() {
 
         setFormError({ ...formErrorClone });
 
-        if (is_valid) {
-            signIn(form);
-        }
+        return is_valid;
+
     }
 
     function handleFormChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -115,6 +132,7 @@ export default function Login() {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
+                                disabled={loading}
                             >
                                 Sign In
                             </Button>
