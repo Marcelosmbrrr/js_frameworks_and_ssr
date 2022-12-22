@@ -4,15 +4,26 @@ import styles from '../styles/login.module.css';
 // Types
 import { form, formError, formValidation } from '../types';
 // MUI
-import { TextField, Grid, Button } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 
 const inputStyle = {
-    minHeight: '80px'
+    minHeight: '30px'
 }
 
-const topModalStyle = {
-    textAlign: 'center',
-    mb: 2
+const formRowStyle = {
+    width: '100%'
 }
 
 const formPatterns: formValidation = {
@@ -34,7 +45,7 @@ export default function Login() {
 
     function handleLogin() {
 
-        let formErrorClone = Object.assign(formError);
+        let formErrorClone: formError = Object.assign(formError);
         for (let field in form) {
             if (!form[field].toString().match(formPatterns[field].regex)) {
                 formErrorClone[field] = { error: true, message: formPatterns[field].message }
@@ -60,50 +71,67 @@ export default function Login() {
             </Head>
 
             <div className={styles.main}>
-                <div className={`${styles.modal} ${styles.fade_out}`}>
-                    <Grid container spacing={1}>
 
-                        <Grid item xs={12} sx={topModalStyle}>
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="nextjs-icon" width='40' height='40' />
-                        </Grid>
-
-                        <Grid item xs={12}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Box mb={2}>
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="50" height="50" style={{ marginRight: 10 }} />
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="50" height="50" />
+                        </Box>
+                        <Typography component="h1" variant="h5">
+                            Sign in
+                        </Typography>
+                        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
                             <TextField
-                                id="email"
-                                label="Email"
-                                name="email"
-                                variant="outlined"
+                                margin="normal"
+                                required
                                 fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
                                 onChange={handleFormChange}
                                 value={form.email}
                                 error={formError.email.error}
                                 helperText={formError.email.message}
-                                sx={inputStyle}
                             />
-                        </Grid>
-
-                        <Grid item xs={12}>
                             <TextField
-                                id="password"
-                                label="Password"
-                                name="password"
-                                variant="outlined"
-                                type="password"
+                                margin="normal"
+                                required
                                 fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
                                 onChange={handleFormChange}
                                 value={form.password}
                                 error={formError.password.error}
                                 helperText={formError.password.message}
-                                sx={inputStyle}
                             />
-                        </Grid>
-
-                        <Grid item xs={12}>
-                            <Button variant="contained" fullWidth onClick={handleLogin} disabled={loading}>{loading ? 'Loading...' : 'Login'}</Button>
-                        </Grid>
-
-                    </Grid>
-                </div>
+                            <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign In
+                            </Button>
+                        </Box>
+                    </Box>
+                </Container>
             </div>
         </>
     )
