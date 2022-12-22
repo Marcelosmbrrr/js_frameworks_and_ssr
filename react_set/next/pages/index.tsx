@@ -72,7 +72,7 @@ export default function Login() {
 
             <div className={styles.main}>
 
-                <Container component="main" maxWidth="xs">
+                <Container component="main" maxWidth="xs" sx={{ boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius: 2 }} className={styles.fade_out}>
                     <CssBaseline />
                     <Box
                         sx={{
