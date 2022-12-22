@@ -2,31 +2,13 @@ import * as React from 'react';
 import Head from 'next/head';
 import styles from '../styles/login.module.css';
 // Types
-import { form, formError, formValidation } from '../types';
+import { formInterface, formErrorInterface, formValidationInterface } from '../types';
 // MUI
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Box, Typography, Container } from '@mui/material';
+// Context
+import { useAuth } from '../context/auth';
 
-const inputStyle = {
-    minHeight: '30px'
-}
-
-const formRowStyle = {
-    width: '100%'
-}
-
-const formPatterns: formValidation = {
+const formPatterns: formValidationInterface = {
     email: {
         regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         message: 'Invalid email.'
@@ -39,16 +21,21 @@ const formPatterns: formValidation = {
 
 export default function Login() {
 
-    const [form, setForm] = React.useState<form>({ email: '', password: '' });
-    const [formError, setFormError] = React.useState<formError>({ email: { error: false, message: '' }, password: { error: false, message: '' } });
+    const { signIn } = useAuth();
+
+    const [form, setForm] = React.useState<formInterface>({ email: '', password: '' });
+    const [formError, setFormError] = React.useState<formErrorInterface>({ email: { error: false, message: '' }, password: { error: false, message: '' } });
     const [loading, setLoading] = React.useState<boolean>(false);
 
-    function handleLogin() {
+    function handleSignIn(e: React.SyntheticEvent) {
+        e.preventDefault();
 
-        let formErrorClone: formError = Object.assign(formError);
+        let formErrorClone: formErrorInterface = Object.assign(formError);
+        let is_valid: boolean = true;
         for (let field in form) {
             if (!form[field].toString().match(formPatterns[field].regex)) {
                 formErrorClone[field] = { error: true, message: formPatterns[field].message }
+                is_valid = false;
             } else {
                 formErrorClone[field] = { error: false, message: '' }
             }
@@ -56,7 +43,9 @@ export default function Login() {
 
         setFormError({ ...formErrorClone });
 
-        alert('Login!');
+        if (is_valid) {
+            signIn(form);
+        }
     }
 
     function handleFormChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -89,7 +78,7 @@ export default function Login() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
+                        <Box component="form" onSubmit={handleSignIn} noValidate sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
