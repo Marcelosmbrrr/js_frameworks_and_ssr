@@ -1,15 +1,17 @@
 import * as React from 'react';
 import Router from 'next/router';
+// UUID lib
 import { v4 as uuidv4 } from 'uuid';
-// https://github.com/maticzav/nookies
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
-// Method to signIn
-import { signInRequest, recoverUserInformation } from '../../services/auth';
+// Cookies methods
+import { parseCookies, setCookie, destroyCookie } from 'nookies'; // From nookies lib - https://github.com/maticzav/nookies
+// Methods
+import { recoverUserInformation, signInRequest } from '../../services/auth';
 
 interface AuthContextInterface {
     user: UserInterface,
     isAuthenticated: boolean,
-    signIn: (data: SigInDataInterface) => void
+    signIn: (data: SigInDataInterface) => void,
+    logout: () => void
 }
 
 interface SigInDataInterface {
@@ -36,10 +38,10 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
     React.useEffect(() => {
 
         const cookies = parseCookies();
-        const token = cookies['nextauth.token'];
+        const cookie = cookies['nextauth'];
 
-        if (token) {
-            recoverUserInformation(token).then(response => setUser(response.user))
+        if (cookie) {
+            recoverUserInformation(JSON.parse(cookie)).then(response => setUser(response.user))
         }
 
     }, []);
@@ -52,7 +54,7 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
         setUser(user);
 
         // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
-        setCookie(undefined, 'nextauth.token', JSON.stringify(token), {
+        setCookie(undefined, 'nextauth', JSON.stringify(token), {
             maxAge: 68 * 60 * 1, // 1 hour
         });
 
@@ -60,8 +62,24 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
     }
 
+    async function logout() {
+
+        const cookies = parseCookies();
+        const cookie = cookies['nextauth'];
+
+        if (cookie) {
+
+            destroyCookie(null, 'nextauth');
+            setUser(null);
+
+            Router.push("/login");
+
+        }
+
+    }
+
     return (
-        <AuthContext.Provider value={{ user, signIn, isAuthenticated }}>
+        <AuthContext.Provider value={{ user, signIn, logout, isAuthenticated }}>
             {children}
         </AuthContext.Provider>
     )

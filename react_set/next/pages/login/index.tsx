@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Head from 'next/head';
-import styles from '../styles/login.module.css';
+import styles from './login.module.css';
 // Types
-import { formInterface, formErrorInterface, formValidationInterface } from '../types';
+import { formInterface, formErrorInterface, formValidationInterface } from '../../types';
 // MUI
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Box, Typography, Container } from '@mui/material';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 // Context
-import { useAuth } from '../context/auth';
+import { useAuth } from '../../context/auth';
 
 const formPatterns: formValidationInterface = {
     email: {
@@ -32,9 +32,8 @@ export default function Login() {
     async function handleSignIn(e: React.SyntheticEvent) {
         e.preventDefault();
 
-        setLoading(true);
-
         if (handleFormValidation()) {
+            setLoading(true);
             try {
                 await signIn(form);
             } catch (error) {
