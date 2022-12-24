@@ -6,6 +6,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'; // From nookies lib - https://github.com/maticzav/nookies
 // Methods
 import { recoverUserInformation, signInRequest } from '../../services/auth';
+// Axios configured
+import { api } from '../../services/api';
 
 interface AuthContextInterface {
     user: UserInterface,
@@ -57,6 +59,9 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
         setCookie(undefined, 'nextauth', JSON.stringify(token), {
             maxAge: 68 * 60 * 1, // 1 hour
         });
+
+        // Save token UUID in the axios headers - for backend requests - JWT
+        api.defaults.headers['Authorization'] = `Bearer ${token.uuid}`;
 
         Router.push("/dashboard");
 

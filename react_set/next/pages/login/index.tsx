@@ -1,13 +1,15 @@
 import * as React from 'react';
 import Head from 'next/head';
-import styles from './login.module.css';
 // Types
 import { formInterface, formErrorInterface, formValidationInterface } from '../../types';
 // MUI
-import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Box, Typography, Container } from '@mui/material';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Box, Typography } from '@mui/material';
+import { useSnackbar } from 'notistack';
+// Styled components
+import { Wrapper, FormularyBox } from '../../styled/login';
 // Context
 import { useAuth } from '../../context/auth';
+import Image from 'next/image';
 
 const formPatterns: formValidationInterface = {
     email: {
@@ -75,13 +77,13 @@ export default function Login() {
                 <meta name="description" content="This is the login page" />
             </Head>
 
-            <div className={styles.main}>
+            <Wrapper>
 
-                <Container component="main" maxWidth="xs" sx={{ boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius: 2 }} className={styles.fade_out}>
+                <FormularyBox>
                     <CssBaseline />
                     <Box
                         sx={{
-                            marginTop: 8,
+                            marginTop: 4,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
@@ -137,8 +139,9 @@ export default function Login() {
                             </Button>
                         </Box>
                     </Box>
-                </Container>
-            </div>
+                </FormularyBox>
+
+            </Wrapper>
         </>
     )
 }
