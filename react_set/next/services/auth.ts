@@ -28,7 +28,7 @@ export async function signInRequest({ email, password }: SignInRequestInterface)
     await delaySimulation();
 
     // In real situation, user will be search in the DB
-    if (email !== 'admin@gmail.com' && password !== '12345') {
+    if (email !== process.env.login.email && password !== process.env.login.password) {
         throw new Error("Email or password incorrect.");
     }
 

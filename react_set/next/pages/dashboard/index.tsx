@@ -1,4 +1,6 @@
 import * as React from 'react';
+// Layout
+import Layout from '../../components/Layout';
 // Context
 import { useAuth } from '../../context/auth';
 // Axios configurec
@@ -14,10 +16,10 @@ export default function Dashboard() {
     }, []);
 
     return (
-        <>
+        <Layout>
             <h1>DASHBOARD</h1>
             <button onClick={() => logout()}>Logout</button>
-        </>
+        </Layout>
     )
 
 }

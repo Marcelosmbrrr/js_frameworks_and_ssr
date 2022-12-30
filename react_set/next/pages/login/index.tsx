@@ -9,7 +9,6 @@ import { useSnackbar } from 'notistack';
 import { Wrapper, FormularyBox } from '../../styled/login';
 // Context
 import { useAuth } from '../../context/auth';
-import Image from 'next/image';
 
 const formPatterns: formValidationInterface = {
     email: {

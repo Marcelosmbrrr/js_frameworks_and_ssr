@@ -17,6 +17,12 @@ const nextConfig = {
         permanent: true,
       },
     ]
+  },
+  env: {
+    login: {
+      email: 'admin@gmail.com',
+      password: '12345'
+    }
   }
 }
 module.exports = nextConfig
