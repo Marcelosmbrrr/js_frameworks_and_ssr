@@ -56,12 +56,12 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
         setUser(user);
 
         // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
-        setCookie(undefined, 'nextauth', JSON.stringify(token), {
+        setCookie(undefined, 'nextauth', JSON.stringify({ token: token, userID: user.id }), {
             maxAge: 68 * 60 * 1, // 1 hour
         });
 
         // Save token UUID in the axios headers - for backend requests - JWT
-        api.defaults.headers['Authorization'] = `Bearer ${token.uuid}`;
+        api.defaults.headers['Authorization'] = `Bearer ${token}`;
 
         Router.push("/dashboard");
 

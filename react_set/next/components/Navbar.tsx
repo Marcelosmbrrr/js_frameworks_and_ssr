@@ -12,9 +12,9 @@ import GroupIcon from '@mui/icons-material/Group';
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
 
 const pages = [
-    { icon: <DashboardIcon fontSize="medium" />, text: "Dashboard", link: '/dashboard' },
-    { icon: <GroupIcon fontSize="medium" />, text: "Users", link: '/users' },
-    { icon: <ContactEmergencyIcon fontSize="medium" />, text: "My Profile", link: '/myprofile' }
+    { id: 1, icon: <DashboardIcon fontSize="medium" />, text: "Dashboard", link: '/dashboard' },
+    { id: 2, icon: <GroupIcon fontSize="medium" />, text: "Users", link: '/users' },
+    { id: 3, icon: <ContactEmergencyIcon fontSize="medium" />, text: "My Profile", link: '/myprofile' }
 ]
 
 export default function Navbar() {
@@ -32,7 +32,7 @@ export default function Navbar() {
             <NavbarBody>
                 <NavbarList>
                     {pages.map((page, index) =>
-                        <Link href={page.link}>
+                        <Link href={page.link} key={page.id}>
                             <NavbarItem key={index}>
                                 <NavbarItemIcon>
                                     {page.icon}

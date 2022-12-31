@@ -8,10 +8,7 @@ interface SignInRequestInterface {
 }
 
 interface CookieInterface {
-    token: {
-        uuid: string,
-        userID: string
-    },
+    token: string,
     user: {
         id: string,
         name: string,
@@ -34,10 +31,7 @@ export async function signInRequest({ email, password }: SignInRequestInterface)
 
     // If exists, the necessary data will be selected in the DB
     return {
-        token: {
-            uuid: uuidv4(),
-            userID: '1'
-        },
+        token: uuidv4(),
         user: {
             id: '1',
             name: 'Admin',
@@ -54,9 +48,7 @@ export async function recoverUserInformation(cookie: CookieInterface) {
     await delaySimulation();
 
     // In real situation, the cookie will have the user ID
-    console.log('recoverUserInformation')
-    console.log(cookie)
-    console.log('----------------------')
+    // With the ID, user data will be retrieved from database
 
     // With the ID and token UUID his data will be requested again to the server
     const user_data_from_db = {
