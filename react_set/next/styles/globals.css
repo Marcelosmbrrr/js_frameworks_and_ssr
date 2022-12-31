@@ -7,7 +7,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
-  /* background-color: #222; */
+  background-color: #F6F6F6;
 }
 
 a {
@@ -18,4 +18,14 @@ a {
 .page_container {
   width: 100vw;
   height: 100vh;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+a{
+  display: flex;
 }

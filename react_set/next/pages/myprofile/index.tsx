@@ -2,7 +2,7 @@ import * as React from 'react';
 // Layout
 import Layout from '../../components/Layout';
 
-export default function Dashboard() {
+export default function MyProfile() {
 
     // Fetch server to get some data
     React.useEffect(() => {
@@ -11,7 +11,7 @@ export default function Dashboard() {
 
     return (
         <Layout>
-            <h1>DASHBOARD</h1>
+            <h1>MY PROFILE</h1>
         </Layout>
     )
 
