@@ -15,7 +15,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 password: req.body.password
             },
             select: {
-                password: false
+                id: true,
+                name: true,
+                email: true,
+                password: false,    
             }
         });
 
@@ -27,6 +30,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(200).send({ data });
 
     } catch (error) {
+
+        console.log(error)
 
         res.status(404).send({ message: 'Email or password incorrect.' });
 
