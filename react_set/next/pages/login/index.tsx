@@ -42,7 +42,7 @@ export default function Login() {
         try {
             await signIn(form);
         } catch (error) {
-            enqueueSnackbar(error.message, { variant: "error" });
+            enqueueSnackbar(error.response.data.message, { variant: "error" });
         } finally {
             setLoading(false);
         }

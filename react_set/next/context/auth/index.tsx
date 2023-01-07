@@ -54,25 +54,31 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
     async function signIn(data: SigInDataInterface) {
 
-        const response = await axios.post('/api/login', {
-            email: data.email,
-            password: data.password
-        });
+        try {
 
-        console.log(response)
+            const response = await axios.post('/api/login', {
+                email: data.email,
+                password: data.password
+            });
 
-        // Set user authenticated data
-        //setUser(user);
+            // Set user authenticated data
+            //setUser(user);
 
-        // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
-        //setCookie(undefined, 'nextauth', JSON.stringify({ token: token, userID: user.id }), {
-        //maxAge: 68 * 60 * 1, // 1 hour
-        //});
+            // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
+            //setCookie(undefined, 'nextauth', JSON.stringify({ token: response.data.token, userID: response.data.user.id }), {
+            //maxAge: 68 * 60 * 1, // 1 hour
+            //});
 
-        // Save token UUID in the axios headers - for backend requests - JWT
-        //axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+            // Save token UUID in the axios headers - for backend requests - JWT
+            //axios.defaults.headers['Authorization'] = `Bearer ${token}`;
 
-        //Router.push("/dashboard");
+            //Router.push("/dashboard");
+
+        } catch (error) {
+        
+            throw error;
+
+        }
 
     }
 
