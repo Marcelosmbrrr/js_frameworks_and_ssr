@@ -33,17 +33,20 @@ export default function Login() {
     async function handleSignIn(e: React.SyntheticEvent) {
         e.preventDefault();
 
-        if (handleFormValidation()) {
-            setLoading(true);
-            try {
-                await signIn(form);
-            } catch (error) {
-                enqueueSnackbar(error.message, { variant: "error" });
-            } finally {
-                setLoading(false);
-            }
-
+        if (!handleFormValidation()) {
+            return '';
         }
+
+        setLoading(true);
+
+        try {
+            await signIn(form);
+        } catch (error) {
+            enqueueSnackbar(error.message, { variant: "error" });
+        } finally {
+            setLoading(false);
+        }
+
     }
 
     function handleFormValidation() {

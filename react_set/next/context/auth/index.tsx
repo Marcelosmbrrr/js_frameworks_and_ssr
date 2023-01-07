@@ -4,10 +4,8 @@ import Router from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 // Cookies methods
 import { parseCookies, setCookie, destroyCookie } from 'nookies'; // From nookies lib - https://github.com/maticzav/nookies
-// Methods
-import { recoverUserInformation, signInRequest } from '../../services/auth';
-// Axios configured
-import { api } from '../../services/api';
+// Axios
+import { api as axios } from '../../services/api';
 
 interface AuthContextInterface {
     user: UserInterface,
@@ -43,27 +41,38 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
         const cookie = cookies['nextauth'];
 
         if (cookie) {
-            recoverUserInformation(JSON.parse(cookie)).then(response => setUser(response.user))
+            // In real situation, the cookie will have the user ID
+            // With the ID, user data will be retrieved from database
+
+            // With the ID and token UUID his data will be requested again to the server
+            // The data will be retrieved
+            // The context will be updated with the data
+            console.log('auth context: already authenticated!')
         }
 
     }, []);
 
     async function signIn(data: SigInDataInterface) {
 
-        const { token, user } = await signInRequest(data);
-
-        // Set user authenticated data
-        setUser(user);
-
-        // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
-        setCookie(undefined, 'nextauth', JSON.stringify({ token: token, userID: user.id }), {
-            maxAge: 68 * 60 * 1, // 1 hour
+        const response = await axios.post('/api/login', {
+            email: data.email,
+            password: data.password
         });
 
-        // Save token UUID in the axios headers - for backend requests - JWT
-        api.defaults.headers['Authorization'] = `Bearer ${token}`;
+        console.log(response)
 
-        Router.push("/dashboard");
+        // Set user authenticated data
+        //setUser(user);
+
+        // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
+        //setCookie(undefined, 'nextauth', JSON.stringify({ token: token, userID: user.id }), {
+        //maxAge: 68 * 60 * 1, // 1 hour
+        //});
+
+        // Save token UUID in the axios headers - for backend requests - JWT
+        //axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+        //Router.push("/dashboard");
 
     }
 

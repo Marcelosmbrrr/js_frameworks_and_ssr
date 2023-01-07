@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { InferGetServerSidePropsType } from 'next';
 // Axios
 import { api as axios } from '../../services/api';
 // Nookies
@@ -25,11 +26,11 @@ export default function Dashboard({ data }) {
 
 // Docs: https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props
 // Docs: https://nextjs.org/docs/api-reference/data-fetching/get-initial-props#context-object
+// Context or ctx is a object with: pathname, query, req, res, err and asPath
 export async function getServerSideProps(context: any) {
-    //console.log(context)
 
     // Instead of using useEffect for check cookie at same time that component is rendering...
-    // Here, the routine is made server side, it is, before any client side render
+    // Here, the routine is done server side, it is, before any client side render
 
     // This function, parseCookies, without the content is for client side - the cookie will be search in the browser!
     // But, being this a server side routine, the browser apis are not available
