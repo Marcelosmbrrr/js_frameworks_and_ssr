@@ -4,6 +4,7 @@ CREATE TABLE `User` (
     `email` VARCHAR(191) NOT NULL,
     `name` VARCHAR(191) NOT NULL,
     `password` VARCHAR(191) NOT NULL,
+    `image` VARCHAR(191) NOT NULL DEFAULT '/images/user.jpg',
     `profileId` INTEGER NOT NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),

@@ -2,6 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidv4 } from 'uuid';
 // Prisma ORM
 import { PrismaClient, Prisma } from '@prisma/client'
+// JWT
+import { jwt } from 'jsonwebtoken';
 
 const prisma = new PrismaClient()
 
@@ -18,7 +20,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 id: true,
                 name: true,
                 email: true,
-                password: false,    
+                password: false,
+                image: true
             }
         });
 
@@ -27,7 +30,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             user: user
         };
 
-        res.status(200).send({ data });
+        res.status(200).send({ ...data });
 
     } catch (error) {
 

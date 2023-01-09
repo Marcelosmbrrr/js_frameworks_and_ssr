@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+// Faker for seeding - https://fakerjs.dev/
+import { faker } from '@faker-js/faker';
 
 /* 
 Seeding the database
@@ -26,6 +28,15 @@ async function main() {
         },
     });
 
+    const data = Array.from({ length: 20 }).map(() => ({
+        email: faker.internet.email(),
+        name: faker.name.fullName(),
+        password: '123456789',
+        profileId: 2
+    }));
+
+    const users = await prisma.user.createMany({ data });
+
 }
 
 main()
@@ -36,4 +47,4 @@ main()
         console.error(e)
         await prisma.$disconnect()
         process.exit(1)
-    });
+    })

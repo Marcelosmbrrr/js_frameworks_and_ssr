@@ -17,6 +17,7 @@ model User {
   email     String  @unique
   name      String
   password  String
+  image     String  @default("/images/user.jpg")
   profile   Profile @relation(fields: [profileId], references: [id])
   profileId Int // has one profile
 }

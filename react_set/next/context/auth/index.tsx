@@ -62,11 +62,11 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
             });
 
             // Set user authenticated data
-            //setUser(user);
+            setUser(response.data.user);
 
             // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
             //setCookie(undefined, 'nextauth', JSON.stringify({ token: response.data.token, userID: response.data.user.id }), {
-            //maxAge: 68 * 60 * 1, // 1 hour
+                //maxAge: 68 * 60 * 1, // 1 hour
             //});
 
             // Save token UUID in the axios headers - for backend requests - JWT
@@ -75,7 +75,7 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
             //Router.push("/dashboard");
 
         } catch (error) {
-        
+
             throw error;
 
         }
