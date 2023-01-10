@@ -1,42 +1,58 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidv4 } from 'uuid';
-// Prisma ORM
-import { PrismaClient, Prisma } from '@prisma/client'
+// Prisma client
+import { client as prisma } from '../../../prisma/client';
 // JWT
-import { jwt } from 'jsonwebtoken';
-
-const prisma = new PrismaClient()
+import { sign } from 'jsonwebtoken';
+// Bcrypt
+import { compare } from 'bcryptjs';
+// Providers
+import { CreateRefreshTokenProvider } from '../../../providers/CreateRefreshTokenProvider';
+import { CreateAccessTokenProvider } from '../../../providers/CreateAccessTokenProvider';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     try {
 
-        const user = await prisma.user.findFirstOrThrow({
+        const user_already_exists = await prisma.user.findFirst({
             where: {
-                email: req.body.email,
-                password: req.body.password
-            },
-            select: {
-                id: true,
-                name: true,
-                email: true,
-                password: false,
-                image: true
+                email: req.body.email
             }
         });
 
-        const data = {
-            token: uuidv4(),
-            user: user
-        };
+        if (!user_already_exists) {
+            throw new Error('Email or password incorrect.');
+        }
 
-        res.status(200).send({ ...data });
+        const password_match = compare(req.body.password, user_already_exists.password);
+
+        if (!password_match) {
+            throw new Error('Email or password incorrect.');
+        }
+
+        // Create access token
+        // This token expires and is needed to access protected routes
+        // Futhermore, can be used to login without credentials while exists
+        const createAccessTokenProvider = new CreateAccessTokenProvider();
+        const access_token = createAccessTokenProvider.execute(user_already_exists.id.toString());
+
+        // Create Refresh Token
+        // This token is needed to create another access token after it expires
+        const generateRefreshToken = new CreateRefreshTokenProvider();
+        const refresh_token = await generateRefreshToken.execute(user_already_exists.id.toString());
+
+        res.status(200).send({
+            access_token, refresh_token, user: {
+                name: user_already_exists.name,
+                email: user_already_exists.email,
+                image: user_already_exists.image,
+                profileId: user_already_exists.profileId
+            }
+        });
 
     } catch (error) {
 
-        console.log(error)
-
-        res.status(404).send({ message: 'Email or password incorrect.' });
+        res.status(404).send({ message: error.message });
 
     }
 

@@ -1,13 +1,13 @@
-import { PrismaClient } from '@prisma/client';
+import { client as prisma } from './client';
 // Faker for seeding - https://fakerjs.dev/
 import { faker } from '@faker-js/faker';
+// Bcrypt 
+import { hash } from 'bcryptjs';
 
 /* 
 Seeding the database
 Documentation: https://www.prisma.io/docs/guides/database/seed-database
 */
-
-const prisma = new PrismaClient();
 
 async function main() {
 
@@ -23,19 +23,22 @@ async function main() {
         data: {
             email: 'admin@gmail.com',
             name: 'Marcelo de Souza Moreira',
-            password: '12345',
+            password: await hash('12345', 8),
             profileId: 1
         },
     });
 
-    const data = Array.from({ length: 20 }).map(() => ({
-        email: faker.internet.email(),
-        name: faker.name.fullName(),
-        password: '123456789',
-        profileId: 2
-    }));
+    const password_hash = await hash('123456789', 8);
 
-    const users = await prisma.user.createMany({ data });
+    const users = await prisma.user.createMany({
+        data: [
+            { name: faker.name.fullName(), email: faker.internet.email(), password: password_hash, profileId: 2 },
+            { name: faker.name.fullName(), email: faker.internet.email(), password: password_hash, profileId: 2 },
+            { name: faker.name.fullName(), email: faker.internet.email(), password: password_hash, profileId: 2 },
+            { name: faker.name.fullName(), email: faker.internet.email(), password: password_hash, profileId: 2 },
+            { name: faker.name.fullName(), email: faker.internet.email(), password: password_hash, profileId: 2 }
+        ]
+    });
 
 }
 

@@ -19,10 +19,7 @@ const nextConfig = {
     ]
   },
   env: {
-    login: {
-      email: 'admin@gmail.com',
-      password: '12345'
-    }
+    //
   }
 }
 module.exports = nextConfig

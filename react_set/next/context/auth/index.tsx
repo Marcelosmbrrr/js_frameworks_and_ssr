@@ -61,18 +61,23 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
                 password: data.password
             });
 
+            console.log(response)
+
+            /*
             // Set user authenticated data
             setUser(response.data.user);
 
             // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
-            //setCookie(undefined, 'nextauth', JSON.stringify({ token: response.data.token, userID: response.data.user.id }), {
-                //maxAge: 68 * 60 * 1, // 1 hour
-            //});
+            // The access Token is stored in client side with this cookie
+            setCookie(undefined, 'nextauth', JSON.stringify(response.data.access_token), {
+                maxAge: 68 * 60 * 1, // 1 hour
+            });
 
-            // Save token UUID in the axios headers - for backend requests - JWT
-            //axios.defaults.headers['Authorization'] = `Bearer ${token}`;
+            // Put the access token hash in the axios header authorization
+            axios.defaults.headers['Authorization'] = `Bearer ${response.data.access_token}`;
 
-            //Router.push("/dashboard");
+            Router.push("/dashboard");
+            */
 
         } catch (error) {
 
