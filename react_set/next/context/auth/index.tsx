@@ -1,7 +1,5 @@
 import * as React from 'react';
 import Router from 'next/router';
-// UUID lib
-import { v4 as uuidv4 } from 'uuid';
 // Cookies methods
 import { parseCookies, setCookie, destroyCookie } from 'nookies'; // From nookies lib - https://github.com/maticzav/nookies
 // Axios
@@ -41,17 +39,22 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
         const cookie = cookies['nextauth'];
 
         if (cookie) {
-            // In real situation, the cookie will have the user ID
-            // With the ID, user data will be retrieved from database
 
-            // With the ID and token UUID his data will be requested again to the server
-            // The data will be retrieved
-            // The context will be updated with the data
+            // Check if cookie already expire
+            // If yes, refresh, if not, continue
+
             console.log('auth context: already authenticated!')
         }
 
     }, []);
 
+    /*
+    * - Do login routine
+    * - Get by response the user data and JWT access token
+    * - Set state with user data and cookie with JWT - to be used in page refresh and to check login
+    * - Set axios header authorization with JWT - to check user authorization in api routes
+    * - Redirect to dashboard
+    */
     async function signIn(data: SigInDataInterface) {
 
         try {
@@ -61,23 +64,18 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
                 password: data.password
             });
 
-            console.log(response)
-
-            /*
-            // Set user authenticated data
             setUser(response.data.user);
 
             // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
             // The access Token is stored in client side with this cookie
-            setCookie(undefined, 'nextauth', JSON.stringify(response.data.access_token), {
-                maxAge: 68 * 60 * 1, // 1 hour
+            setCookie(undefined, 'nextauth', response.data.access_token, {
+                maxAge: 20, // seconds
             });
 
             // Put the access token hash in the axios header authorization
             axios.defaults.headers['Authorization'] = `Bearer ${response.data.access_token}`;
 
             Router.push("/dashboard");
-            */
 
         } catch (error) {
 
@@ -87,6 +85,11 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
     }
 
+    /*
+    * - Find cookie and delete it
+    * - Find authorization header and delete it
+    * - Request server to delete refresh token
+    */
     async function logout() {
 
         const cookies = parseCookies();
@@ -94,8 +97,12 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
         if (cookie) {
 
+            delete axios.defaults.headers.common["Authorization"];
+
             destroyCookie(null, 'nextauth');
             setUser(null);
+
+            // Delete refresh token
 
             Router.push("/login");
 

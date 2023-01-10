@@ -12,13 +12,13 @@ import dayjs from 'dayjs';
 
 export class CreateRefreshTokenProvider {
 
-    async execute(userId: String) {
+    async execute(userId: number) {
 
         const expiresIn = dayjs().add(20, "seconds").unix();
 
-        const create_refresh_token = await prisma.refresh_token.create({
+        const create_refresh_token = await prisma.refreshToken.create({
             data: {
-                userId,
+                userId: userId,
                 expiresIn
             }
         });

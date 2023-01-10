@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { InferGetServerSidePropsType } from 'next';
 // Axios
 import { api as axios } from '../../services/api';
 // Nookies
@@ -10,9 +9,6 @@ import Layout from '../../components/Layout';
 export default function Dashboard({ data }) {
 
     React.useEffect(() => {
-        // In a pure React app, the cookie validation would have to be done here
-        // Now, useEffect, being client side, occurs after the server side routines
-        // So, here, the "data" returned by "getServerSideProps" will already exists
         console.log(data);
     })
 
@@ -35,6 +31,7 @@ export async function getServerSideProps(context: any) {
     // This function, parseCookies, without the content is for client side - the cookie will be search in the browser!
     // But, being this a server side routine, the browser apis are not available
     // So, inside the context object - see more about in the docs -, the server can find the cookies 
+
     const cookies = parseCookies(context);
     const cookie = cookies['nextauth'];
 
@@ -47,9 +44,29 @@ export async function getServerSideProps(context: any) {
         }
     }
 
-    const data = await axios.get('/api/users');
+    const response = await axios.get('/api/users');
 
-    return {
-        props: { data }, // will be passed to the page component as props
+    try {
+
+        const response = await axios.get('/api/users');
+
+        return {
+            props: {
+                data: response.data
+            },
+        }
+
+    } catch (error) {
+
+        return {
+            props: {
+                data: {}
+            },
+        }
+
     }
+
+
+
+
 }

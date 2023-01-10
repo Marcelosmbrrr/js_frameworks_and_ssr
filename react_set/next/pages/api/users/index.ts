@@ -14,18 +14,17 @@ With Next. js API Routes, you can access or store data in your database like you
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-
-    if (req.method === " GET") {
+    if (req.method == "GET") {
 
         const users = await prisma.user.findMany();
 
-        if(!users){
-            res.status(404).send({ message: 'No user found.' });
+        if (!users) {
+            res.status(404).send({ users: [], message: 'No user found.' });
         }
 
         res.status(200).json({ users: users, message: 'Users found.' })
 
-    } else if (req.method === "POST") {
+    } else if (req.method == "POST") {
 
         const { name, email, password } = req.body;
 

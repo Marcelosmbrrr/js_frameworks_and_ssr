@@ -12,10 +12,10 @@ import { sign } from 'jsonwebtoken';
 
 export class CreateAccessTokenProvider {
 
-    async execute(userId: String) {
+    async execute(userId: number) {
 
         const access_token = sign({}, process.env.SECRET_JWT, {
-            subject: userId,
+            subject: userId.toString(),
             expiresIn: "20s"
         });
 
