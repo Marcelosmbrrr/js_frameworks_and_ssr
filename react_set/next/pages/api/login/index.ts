@@ -34,15 +34,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // This token expires and is needed to access protected routes
         // Futhermore, can be used to login without credentials while exists
         const createAccessTokenProvider = new CreateAccessTokenProvider();
-        const access_token = await createAccessTokenProvider.execute(user_already_exists.id);
+        const access_token_jwt = await createAccessTokenProvider.execute(user_already_exists.id);
 
         // Create Refresh Token
         // This token is needed to create another access token after it expires
         const createRefreshToken = new CreateRefreshTokenProvider();
-        const refresh_token = await createRefreshToken.execute(user_already_exists.id);
+        const refresh_token_jwt = await createRefreshToken.execute(user_already_exists.id);
 
         res.status(200).send({
-            access_token, user: {
+            access_token_jwt, refresh_token_jwt, user: {
                 name: user_already_exists.name,
                 email: user_already_exists.email,
                 image: user_already_exists.image,

@@ -1,5 +1,7 @@
 import { client as prisma } from '../prisma/client';
 import dayjs from 'dayjs';
+// JWT
+import { sign } from 'jsonwebtoken';
 
 /*
 - This class is used to create an refresh token
@@ -16,14 +18,19 @@ export class CreateRefreshTokenProvider {
 
         const expiresIn = dayjs().add(20, "seconds").unix();
 
-        const create_refresh_token = await prisma.refreshToken.create({
+        const new_refresh_token = await prisma.refreshToken.create({
             data: {
                 userId: userId,
                 expiresIn
             }
         });
 
-        return create_refresh_token;
+        const refresh_token_jwt = sign({}, process.env.SECRET_JWT, {
+            subject: new_refresh_token.id,
+            expiresIn: "7d"
+        });
+
+        return refresh_token_jwt;
     }
 
 }

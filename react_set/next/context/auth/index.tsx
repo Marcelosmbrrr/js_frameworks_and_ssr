@@ -67,9 +67,17 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
             setUser(response.data.user);
 
             // Localstorage and document.cookie doesnt work with NextJs: https://dev.to/dendekky/accessing-localstorage-in-nextjs-39he
-            // The access Token is stored in client side with this cookie
-            setCookie(undefined, 'nextauth', response.data.access_token, {
-                maxAge: 20, // seconds
+
+            // The access token is stored in client side with this cookie
+            // The access token cookie is set with a short expiry time to ensure that is only used during an active session and needs to be refreshed frequently.
+            setCookie(undefined, 'access_token', response.data.access_token, {
+                maxAge: 60, // seconds
+            });
+
+            // The refresh token is stored in client side with this cookie
+            // The refresh token cookie generally has a longer expiration time. This ensures that the user does not have to log in again to renew the access token.
+            setCookie(undefined, 'refresh_token', response.data.refresh_token, {
+                maxAge: 7 * (60 * 60 * 24), // 7 days (seconds)
             });
 
             // Put the access token hash in the axios header authorization
@@ -93,13 +101,14 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
     async function logout() {
 
         const cookies = parseCookies();
-        const cookie = cookies['nextauth'];
+        const cookie = cookies['access_token'];
 
         if (cookie) {
 
             delete axios.defaults.headers.common["Authorization"];
 
-            destroyCookie(null, 'nextauth');
+            destroyCookie(null, 'access_token');
+            destroyCookie(null, 'refresh_token');
             setUser(null);
 
             // Delete refresh token

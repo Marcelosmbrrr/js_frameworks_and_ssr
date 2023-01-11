@@ -33,9 +33,14 @@ export async function getServerSideProps(context: any) {
     // So, inside the context object - see more about in the docs -, the server can find the cookies 
 
     const cookies = parseCookies(context);
-    const cookie = cookies['nextauth'];
+    const cookie = cookies['access_token'];
 
     if (!cookie) {
+
+        // Verify if exists refresh_token
+        // If yes, refresh the access token
+        // If no, logout user
+
         return {
             redirect: {
                 destination: '/login',
