@@ -70,18 +70,18 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
             // The access token is stored in client side with this cookie
             // The access token cookie is set with a short expiry time to ensure that is only used during an active session and needs to be refreshed frequently.
-            setCookie(undefined, 'access_token', response.data.access_token, {
+            setCookie(undefined, 'access_token', response.data.access_token_jwt, {
                 maxAge: 60, // seconds
             });
 
             // The refresh token is stored in client side with this cookie
             // The refresh token cookie generally has a longer expiration time. This ensures that the user does not have to log in again to renew the access token.
-            setCookie(undefined, 'refresh_token', response.data.refresh_token, {
+            setCookie(undefined, 'refresh_token', response.data.refresh_token_jwt, {
                 maxAge: 7 * (60 * 60 * 24), // 7 days (seconds)
             });
 
             // Put the access token hash in the axios header authorization
-            axios.defaults.headers['Authorization'] = `Bearer ${response.data.access_token}`;
+            axios.defaults.headers['Authorization'] = `Bearer ${response.data.access_token_jwt}`;
 
             Router.push("/dashboard");
 
@@ -105,13 +105,15 @@ export function AuthProvider({ children }: { children: JSX.Element }) {
 
         if (cookie) {
 
+            // Invalidate refresh token
+            //await axios.post('/api/logout');
+
             delete axios.defaults.headers.common["Authorization"];
 
             destroyCookie(null, 'access_token');
             destroyCookie(null, 'refresh_token');
-            setUser(null);
 
-            // Delete refresh token
+            setUser(null);
 
             Router.push("/login");
 

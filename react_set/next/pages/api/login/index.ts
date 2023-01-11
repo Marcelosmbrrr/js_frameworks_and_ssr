@@ -24,20 +24,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             throw new Error('Email or password incorrect.');
         }
 
-        const password_match = compare(req.body.password, user_already_exists.password);
+        const password_match = await compare(req.body.password, user_already_exists.password);
 
         if (!password_match) {
             throw new Error('Email or password incorrect.');
         }
 
-        // Create access token
-        // This token expires and is needed to access protected routes
-        // Futhermore, can be used to login without credentials while exists
+        // Create Access Token
         const createAccessTokenProvider = new CreateAccessTokenProvider();
         const access_token_jwt = await createAccessTokenProvider.execute(user_already_exists.id);
 
         // Create Refresh Token
-        // This token is needed to create another access token after it expires
         const createRefreshToken = new CreateRefreshTokenProvider();
         const refresh_token_jwt = await createRefreshToken.execute(user_already_exists.id);
 
@@ -52,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     } catch (error) {
 
-        res.status(404).send({ message: error.message });
+        res.status(500).send({ message: error.message });
 
     }
 

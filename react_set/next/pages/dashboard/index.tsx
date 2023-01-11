@@ -33,20 +33,28 @@ export async function getServerSideProps(context: any) {
     // So, inside the context object - see more about in the docs -, the server can find the cookies 
 
     const cookies = parseCookies(context);
-    const cookie = cookies['access_token'];
+    const access_token_cookie = cookies['access_token'];
 
-    if (!cookie) {
+    if (!access_token_cookie) {
 
-        // Verify if exists refresh_token
-        // If yes, refresh the access token
-        // If no, logout user
+        const refresh_token_cookie = cookies['refresh_token'];
 
-        return {
-            redirect: {
-                destination: '/login',
-                permanent: false
+        if (refresh_token_cookie) {
+
+            // Request to refresh token route
+            // Generate new refresh token and access token
+            // Set both to client side as cookies
+
+        } else {
+
+            return {
+                redirect: {
+                    destination: '/login',
+                    permanent: false
+                }
             }
         }
+
     }
 
     const response = await axios.get('/api/users');

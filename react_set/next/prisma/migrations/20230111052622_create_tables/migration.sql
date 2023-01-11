@@ -23,6 +23,7 @@ CREATE TABLE `profiles` (
 CREATE TABLE `refresh_token` (
     `id` VARCHAR(191) NOT NULL,
     `expiresIn` INTEGER NOT NULL,
+    `is_valid` BOOLEAN NOT NULL DEFAULT true,
     `userId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
